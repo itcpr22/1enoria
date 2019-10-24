@@ -14,7 +14,6 @@ import java.util.logging.Level;
 import java.util.logging.Logger;
 import javax.swing.JOptionPane;
 import javax.swing.table.DefaultTableModel;
-import static sun.font.FontManagerNativeLibrary.load;
 
 /**
  *
@@ -28,25 +27,45 @@ public class Home extends javax.swing.JFrame {
     public Home() {
         initComponents();
         refresh();
-       
-           
-        
-       
+
     }
-    
+
     ProductClass prod = new ProductClass();
+    Connect con = new Connect();
 
-void clear(){
-    tfPname.setText(null);
-    spinQTY.setValue(0);
-    ftPrice.setText(null);
-    tfPname.requestFocusInWindow();
-}
+    void clear() {
+        tfPname.setText(null);
+        spinQTY.setValue(0);
+        ftPrice.setText(null);
+        tfPname.requestFocusInWindow();
+    }
 
+    final void search(String keyword) {
+        try {
+            Class.forName("com.mysql.jdbc.Driver");
+            Connection conn = (Connection) DriverManager.getConnection(con.url, con.username, con.password);
 
-   
+            String sql = "Select * from tblproducts where id like ? or P_Name  like ?";
+            PreparedStatement pstmt = (PreparedStatement) conn.prepareStatement(sql);
 
+            pstmt.setString(1,"%"+keyword+"%" );
+            pstmt.setString(2,"%"+keyword+"%");
+            
+            ResultSet rs = pstmt.executeQuery();
+            DefaultTableModel mod = (DefaultTableModel) prodTBL.getModel();
+            mod.setRowCount(0);
+            while(rs.next()){
+                mod.addRow(new Object[]{rs.getString("id"),rs.getString("P_Name"),rs.getString("Qty"),rs.getString("price")});
+                
+            }
+            
 
+        } catch (ClassNotFoundException ex) {
+            Logger.getLogger(Home.class.getName()).log(Level.SEVERE, null, ex);
+        } catch (SQLException ex) {
+            Logger.getLogger(Home.class.getName()).log(Level.SEVERE, null, ex);
+        }
+    }
 
     /**
      * This method is called from within the constructor to initialize the form.
@@ -73,6 +92,8 @@ void clear(){
         addProd = new javax.swing.JButton();
         updateProd = new javax.swing.JButton();
         deleteProd = new javax.swing.JButton();
+        tfSearch = new javax.swing.JTextField();
+        addProd1 = new javax.swing.JButton();
 
         prodDialog.setLocation(new java.awt.Point(500, 200));
         prodDialog.setMinimumSize(new java.awt.Dimension(321, 260));
@@ -206,17 +227,31 @@ void clear(){
             }
         });
 
-        updateProd.setText("Update");
+        updateProd.setText("Edit");
         updateProd.addActionListener(new java.awt.event.ActionListener() {
             public void actionPerformed(java.awt.event.ActionEvent evt) {
                 updateProdActionPerformed(evt);
             }
         });
 
+        deleteProd.setForeground(new java.awt.Color(153, 0, 0));
         deleteProd.setText("Delete");
         deleteProd.addActionListener(new java.awt.event.ActionListener() {
             public void actionPerformed(java.awt.event.ActionEvent evt) {
                 deleteProdActionPerformed(evt);
+            }
+        });
+
+        tfSearch.addKeyListener(new java.awt.event.KeyAdapter() {
+            public void keyReleased(java.awt.event.KeyEvent evt) {
+                tfSearchKeyReleased(evt);
+            }
+        });
+
+        addProd1.setText("search");
+        addProd1.addActionListener(new java.awt.event.ActionListener() {
+            public void actionPerformed(java.awt.event.ActionEvent evt) {
+                addProd1ActionPerformed(evt);
             }
         });
 
@@ -227,25 +262,35 @@ void clear(){
             .addGroup(javax.swing.GroupLayout.Alignment.TRAILING, jPanel1Layout.createSequentialGroup()
                 .addContainerGap()
                 .addGroup(jPanel1Layout.createParallelGroup(javax.swing.GroupLayout.Alignment.LEADING)
-                    .addComponent(addProd, javax.swing.GroupLayout.DEFAULT_SIZE, 92, Short.MAX_VALUE)
+                    .addComponent(addProd, javax.swing.GroupLayout.DEFAULT_SIZE, 89, Short.MAX_VALUE)
                     .addComponent(updateProd, javax.swing.GroupLayout.DEFAULT_SIZE, javax.swing.GroupLayout.DEFAULT_SIZE, Short.MAX_VALUE)
                     .addComponent(deleteProd, javax.swing.GroupLayout.DEFAULT_SIZE, javax.swing.GroupLayout.DEFAULT_SIZE, Short.MAX_VALUE))
                 .addPreferredGap(javax.swing.LayoutStyle.ComponentPlacement.RELATED)
-                .addComponent(jScrollPane1, javax.swing.GroupLayout.PREFERRED_SIZE, 379, javax.swing.GroupLayout.PREFERRED_SIZE)
-                .addContainerGap())
+                .addGroup(jPanel1Layout.createParallelGroup(javax.swing.GroupLayout.Alignment.LEADING, false)
+                    .addComponent(jScrollPane1, javax.swing.GroupLayout.PREFERRED_SIZE, 379, javax.swing.GroupLayout.PREFERRED_SIZE)
+                    .addGroup(jPanel1Layout.createSequentialGroup()
+                        .addComponent(tfSearch, javax.swing.GroupLayout.PREFERRED_SIZE, 287, javax.swing.GroupLayout.PREFERRED_SIZE)
+                        .addPreferredGap(javax.swing.LayoutStyle.ComponentPlacement.RELATED)
+                        .addComponent(addProd1, javax.swing.GroupLayout.DEFAULT_SIZE, javax.swing.GroupLayout.DEFAULT_SIZE, Short.MAX_VALUE)))
+                .addContainerGap(13, Short.MAX_VALUE))
         );
         jPanel1Layout.setVerticalGroup(
             jPanel1Layout.createParallelGroup(javax.swing.GroupLayout.Alignment.LEADING)
             .addGroup(jPanel1Layout.createSequentialGroup()
-                .addGap(19, 19, 19)
+                .addContainerGap()
+                .addGroup(jPanel1Layout.createParallelGroup(javax.swing.GroupLayout.Alignment.BASELINE)
+                    .addComponent(tfSearch, javax.swing.GroupLayout.PREFERRED_SIZE, javax.swing.GroupLayout.DEFAULT_SIZE, javax.swing.GroupLayout.PREFERRED_SIZE)
+                    .addComponent(addProd1))
+                .addPreferredGap(javax.swing.LayoutStyle.ComponentPlacement.RELATED)
                 .addGroup(jPanel1Layout.createParallelGroup(javax.swing.GroupLayout.Alignment.LEADING)
                     .addComponent(jScrollPane1, javax.swing.GroupLayout.PREFERRED_SIZE, 0, Short.MAX_VALUE)
                     .addGroup(jPanel1Layout.createSequentialGroup()
                         .addComponent(addProd)
                         .addGap(13, 13, 13)
                         .addComponent(updateProd)
-                        .addPreferredGap(javax.swing.LayoutStyle.ComponentPlacement.RELATED, 196, Short.MAX_VALUE)
-                        .addComponent(deleteProd)))
+                        .addPreferredGap(javax.swing.LayoutStyle.ComponentPlacement.UNRELATED)
+                        .addComponent(deleteProd)
+                        .addGap(0, 164, Short.MAX_VALUE)))
                 .addContainerGap())
         );
 
@@ -272,46 +317,68 @@ void clear(){
     private void addProdActionPerformed(java.awt.event.ActionEvent evt) {//GEN-FIRST:event_addProdActionPerformed
         // TODO add your handling code here:
         prodDialog.setVisible(true);
-      
-      
+
+
     }//GEN-LAST:event_addProdActionPerformed
 
     private void jButton1ActionPerformed(java.awt.event.ActionEvent evt) {//GEN-FIRST:event_jButton1ActionPerformed
         // TODO add your handling code here:
-         String sPn = tfPname.getText();
+        String sPn = tfPname.getText();
         int iqty = (int) spinQTY.getValue();
         Object Opr = ftPrice.getText();
-        
-    int x = prod.product(sPn, iqty, Opr);
 
-        if(x == 1){
+        int x = prod.product(sPn, iqty, Opr);
+
+        if (x == 1) {
             refresh();
-            JOptionPane.showMessageDialog(rootPane,"successfully added");
-             
+            JOptionPane.showMessageDialog(rootPane, "successfully added");
+
             clear();
 
-        }else{
-            
-            JOptionPane.showMessageDialog(rootPane,"you to fill all fields");
-            
+        } else {
+
+            JOptionPane.showMessageDialog(rootPane, "you to fill all fields");
+
         }
-        
+
     }//GEN-LAST:event_jButton1ActionPerformed
 
     private void deleteProdActionPerformed(java.awt.event.ActionEvent evt) {//GEN-FIRST:event_deleteProdActionPerformed
         // TODO add your handling code here:
         DELETE_RECORDS();
-       refresh();
+        refresh();
     }//GEN-LAST:event_deleteProdActionPerformed
 
     private void updateProdActionPerformed(java.awt.event.ActionEvent evt) {//GEN-FIRST:event_updateProdActionPerformed
         // TODO add your handling code here:
-        jaja.setVisible(true);
+
+        int table_row = prodTBL.getSelectedRow();
+
+        Object id = prodTBL.getValueAt(table_row, 0);
+        Object pName = prodTBL.getValueAt(table_row, 1);
+        Object pQTY = prodTBL.getValueAt(table_row, 2);
+        Object pPrice = prodTBL.getValueAt(table_row, 3);
+
+        tfPname.setText((String) pName);
+        spinQTY.setValue(pQTY);
+        ftPrice.setValue(pPrice);
+
+        prodDialog.setVisible(true);
     }//GEN-LAST:event_updateProdActionPerformed
 
     private void ftPriceFocusLost(java.awt.event.FocusEvent evt) {//GEN-FIRST:event_ftPriceFocusLost
         // TODO add your handling code here:
     }//GEN-LAST:event_ftPriceFocusLost
+
+    private void addProd1ActionPerformed(java.awt.event.ActionEvent evt) {//GEN-FIRST:event_addProd1ActionPerformed
+        // TODO add your handling code here:
+    }//GEN-LAST:event_addProd1ActionPerformed
+
+    private void tfSearchKeyReleased(java.awt.event.KeyEvent evt) {//GEN-FIRST:event_tfSearchKeyReleased
+        // TODO add your handling code here:
+        String keyword = tfSearch.getText();
+         this.search(keyword);
+    }//GEN-LAST:event_tfSearchKeyReleased
 
     /**
      * @param args the command line arguments
@@ -346,13 +413,14 @@ void clear(){
         /* Create and display the form */
         java.awt.EventQueue.invokeLater(new Runnable() {
             public void run() {
-               
+
             }
         });
     }
 
     // Variables declaration - do not modify//GEN-BEGIN:variables
     private javax.swing.JButton addProd;
+    private javax.swing.JButton addProd1;
     private javax.swing.JButton deleteProd;
     private javax.swing.JFormattedTextField ftPrice;
     private javax.swing.JButton jButton1;
@@ -367,11 +435,12 @@ void clear(){
     private javax.swing.JTable prodTBL;
     private javax.swing.JSpinner spinQTY;
     private javax.swing.JTextField tfPname;
+    private javax.swing.JTextField tfSearch;
     private javax.swing.JButton updateProd;
     // End of variables declaration//GEN-END:variables
 
-final void refresh(){
-      try {
+    final void refresh() {
+        try {
             Class.forName("com.mysql.jdbc.Driver");
             String conURL = "jdbc:mysql://localhost/enoriadb?"
                     + "user=root&password=";
@@ -384,12 +453,11 @@ final void refresh(){
 
             while (rs.next()) {
                 tblmodel.addRow(new Object[]{rs.getString("id"),
-                   
                     rs.getString("P_name"),
                     rs.getString("Qty"),
                     rs.getString("price")});
             }
-           
+
             //TFrCode.requestFocus();
         } catch (ClassNotFoundException ex) {
             Logger.getLogger(ProductClass.class.getName()).log(Level.SEVERE, null, ex);
@@ -397,11 +465,12 @@ final void refresh(){
             Logger.getLogger(ProductClass.class.getName()).log(Level.SEVERE, null, ex);
         }
 
-}
-private void DELETE_RECORDS() {
+    }
+
+    private void DELETE_RECORDS() {
         int selRow = prodTBL.getSelectedRow();
-        if (selRow != -1) {    
-            int column = 0;  
+        if (selRow != -1) {
+            int column = 0;
             String id = prodTBL
                     .getValueAt(selRow, column).toString();
             int blabla = JOptionPane.showConfirmDialog(rootPane,
@@ -409,9 +478,9 @@ private void DELETE_RECORDS() {
                     "Delete Confirmation",
                     JOptionPane.YES_NO_OPTION);
 
-            if (blabla == JOptionPane.YES_OPTION) {   
+            if (blabla == JOptionPane.YES_OPTION) {
                 try {
-                    Class.forName("com.mysql.jdbc.Driver"); 
+                    Class.forName("com.mysql.jdbc.Driver");
                     String conURL = "jdbc:mysql://localhost/enoriadb?"
                             + "user=root&password=";
                     java.sql.Connection con = DriverManager.getConnection(conURL);
@@ -419,7 +488,7 @@ private void DELETE_RECORDS() {
                     pstmt.setString(1, id);
                     pstmt.executeUpdate();
 
-                   load();
+                   
 
                 } catch (ClassNotFoundException ex) {
                     Logger.getLogger(ProductClass.class.getName()).log(Level.SEVERE, null, ex);
@@ -435,4 +504,3 @@ private void DELETE_RECORDS() {
     }
 
 }
-
