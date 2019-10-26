@@ -5,6 +5,7 @@
  */
 package newpackage;
 
+import java.awt.Color;
 import java.sql.Connection;
 import java.sql.DriverManager;
 import java.sql.PreparedStatement;
@@ -109,6 +110,11 @@ public class Log_in extends javax.swing.JFrame {
 
         jLabel8.setText(".......");
 
+        cpPF.addActionListener(new java.awt.event.ActionListener() {
+            public void actionPerformed(java.awt.event.ActionEvent evt) {
+                cpPFActionPerformed(evt);
+            }
+        });
         cpPF.addKeyListener(new java.awt.event.KeyAdapter() {
             public void keyReleased(java.awt.event.KeyEvent evt) {
                 cpPFKeyReleased(evt);
@@ -120,9 +126,9 @@ public class Log_in extends javax.swing.JFrame {
         jPanel2Layout.setHorizontalGroup(
             jPanel2Layout.createParallelGroup(javax.swing.GroupLayout.Alignment.LEADING)
             .addGroup(jPanel2Layout.createSequentialGroup()
-                .addGroup(jPanel2Layout.createParallelGroup(javax.swing.GroupLayout.Alignment.TRAILING, false)
+                .addGap(23, 23, 23)
+                .addGroup(jPanel2Layout.createParallelGroup(javax.swing.GroupLayout.Alignment.TRAILING)
                     .addGroup(jPanel2Layout.createSequentialGroup()
-                        .addGap(23, 23, 23)
                         .addGroup(jPanel2Layout.createParallelGroup(javax.swing.GroupLayout.Alignment.TRAILING)
                             .addGroup(jPanel2Layout.createParallelGroup(javax.swing.GroupLayout.Alignment.LEADING)
                                 .addComponent(jLabel7)
@@ -139,7 +145,6 @@ public class Log_in extends javax.swing.JFrame {
                             .addComponent(pPF)
                             .addComponent(cpPF, javax.swing.GroupLayout.DEFAULT_SIZE, 232, Short.MAX_VALUE)))
                     .addGroup(jPanel2Layout.createSequentialGroup()
-                        .addContainerGap(126, Short.MAX_VALUE)
                         .addComponent(btnBack)
                         .addPreferredGap(javax.swing.LayoutStyle.ComponentPlacement.RELATED)
                         .addComponent(btnRegister, javax.swing.GroupLayout.PREFERRED_SIZE, 121, javax.swing.GroupLayout.PREFERRED_SIZE)
@@ -444,10 +449,14 @@ public class Log_in extends javax.swing.JFrame {
         int x = reg.confirmPassword(pw, cpw);
         if(x==1){
             msg = "Password Matched!";
+              jLabel8.setForeground(Color.blue);
         }else{
+              jLabel8.setForeground(Color.red);
             msg = "Password Does Not Match!";
+            
         }
         jLabel8.setText(msg);
+      
 
     }//GEN-LAST:event_cpPFKeyReleased
 
@@ -463,6 +472,11 @@ public class Log_in extends javax.swing.JFrame {
         // TODO add your handling code here:
          SignUp.setVisible(true);
     }//GEN-LAST:event_label1MouseClicked
+
+    private void cpPFActionPerformed(java.awt.event.ActionEvent evt) {//GEN-FIRST:event_cpPFActionPerformed
+        // TODO add your handling code here:
+         btnRegisterActionPerformed(evt);
+    }//GEN-LAST:event_cpPFActionPerformed
 
     /**
      * @param args the command line arguments
