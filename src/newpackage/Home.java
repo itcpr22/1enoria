@@ -15,7 +15,6 @@ import java.util.logging.Logger;
 import javax.swing.JOptionPane;
 import javax.swing.table.DefaultTableModel;
 
-
 /**
  *
  * @author tedted29
@@ -33,9 +32,7 @@ public class Home extends javax.swing.JFrame {
 
     ProductClass prod = new ProductClass();
     Connect con = new Connect();
-     
-   
-    
+
     Object id = null;
 
     void clear() {
@@ -88,9 +85,10 @@ public class Home extends javax.swing.JFrame {
         jLabel2 = new javax.swing.JLabel();
         jLabel3 = new javax.swing.JLabel();
         jLabel4 = new javax.swing.JLabel();
-        jButton1 = new javax.swing.JButton();
-        jButton2 = new javax.swing.JButton();
-        jButton3 = new javax.swing.JButton();
+        btnAdd = new javax.swing.JButton();
+        btnSave = new javax.swing.JButton();
+        btnAddQTY = new javax.swing.JButton();
+        xst_qty = new javax.swing.JLabel();
         jaja = new javax.swing.JFrame();
         jPanel1 = new javax.swing.JPanel();
         jScrollPane1 = new javax.swing.JScrollPane();
@@ -123,26 +121,28 @@ public class Home extends javax.swing.JFrame {
 
         jLabel4.setText("Price:");
 
-        jButton1.setText("Add");
-        jButton1.addActionListener(new java.awt.event.ActionListener() {
+        btnAdd.setText("Add");
+        btnAdd.addActionListener(new java.awt.event.ActionListener() {
             public void actionPerformed(java.awt.event.ActionEvent evt) {
-                jButton1ActionPerformed(evt);
+                btnAddActionPerformed(evt);
             }
         });
 
-        jButton2.setText("Save");
-        jButton2.addActionListener(new java.awt.event.ActionListener() {
+        btnSave.setText("Save");
+        btnSave.addActionListener(new java.awt.event.ActionListener() {
             public void actionPerformed(java.awt.event.ActionEvent evt) {
-                jButton2ActionPerformed(evt);
+                btnSaveActionPerformed(evt);
             }
         });
 
-        jButton3.setText("Add Quantity");
-        jButton3.addActionListener(new java.awt.event.ActionListener() {
+        btnAddQTY.setText("Add Quantity");
+        btnAddQTY.addActionListener(new java.awt.event.ActionListener() {
             public void actionPerformed(java.awt.event.ActionEvent evt) {
-                jButton3ActionPerformed(evt);
+                btnAddQTYActionPerformed(evt);
             }
         });
+
+        xst_qty.setText("jLabel1");
 
         javax.swing.GroupLayout jPanel2Layout = new javax.swing.GroupLayout(jPanel2);
         jPanel2.setLayout(jPanel2Layout);
@@ -157,14 +157,17 @@ public class Home extends javax.swing.JFrame {
                             .addComponent(jLabel4))
                         .addComponent(jLabel3)))
                 .addPreferredGap(javax.swing.LayoutStyle.ComponentPlacement.RELATED)
-                .addGroup(jPanel2Layout.createParallelGroup(javax.swing.GroupLayout.Alignment.LEADING, false)
-                    .addComponent(jButton1, javax.swing.GroupLayout.DEFAULT_SIZE, 156, Short.MAX_VALUE)
+                .addGroup(jPanel2Layout.createParallelGroup(javax.swing.GroupLayout.Alignment.LEADING)
+                    .addComponent(btnAdd, javax.swing.GroupLayout.DEFAULT_SIZE, 155, Short.MAX_VALUE)
                     .addComponent(tfPname)
-                    .addComponent(spinQTY, javax.swing.GroupLayout.DEFAULT_SIZE, 156, Short.MAX_VALUE)
                     .addComponent(ftPrice)
-                    .addComponent(jButton3, javax.swing.GroupLayout.DEFAULT_SIZE, 156, Short.MAX_VALUE)
-                    .addComponent(jButton2, javax.swing.GroupLayout.DEFAULT_SIZE, 156, Short.MAX_VALUE))
-                .addContainerGap(58, Short.MAX_VALUE))
+                    .addComponent(btnAddQTY, javax.swing.GroupLayout.DEFAULT_SIZE, 155, Short.MAX_VALUE)
+                    .addComponent(btnSave, javax.swing.GroupLayout.DEFAULT_SIZE, 155, Short.MAX_VALUE)
+                    .addGroup(javax.swing.GroupLayout.Alignment.TRAILING, jPanel2Layout.createSequentialGroup()
+                        .addComponent(xst_qty, javax.swing.GroupLayout.DEFAULT_SIZE, javax.swing.GroupLayout.DEFAULT_SIZE, Short.MAX_VALUE)
+                        .addGap(18, 18, 18)
+                        .addComponent(spinQTY, javax.swing.GroupLayout.PREFERRED_SIZE, 73, javax.swing.GroupLayout.PREFERRED_SIZE)))
+                .addGap(57, 57, 57))
         );
         jPanel2Layout.setVerticalGroup(
             jPanel2Layout.createParallelGroup(javax.swing.GroupLayout.Alignment.LEADING)
@@ -176,17 +179,18 @@ public class Home extends javax.swing.JFrame {
                 .addPreferredGap(javax.swing.LayoutStyle.ComponentPlacement.RELATED)
                 .addGroup(jPanel2Layout.createParallelGroup(javax.swing.GroupLayout.Alignment.BASELINE)
                     .addComponent(jLabel3)
-                    .addComponent(spinQTY, javax.swing.GroupLayout.PREFERRED_SIZE, javax.swing.GroupLayout.DEFAULT_SIZE, javax.swing.GroupLayout.PREFERRED_SIZE))
+                    .addComponent(spinQTY, javax.swing.GroupLayout.PREFERRED_SIZE, javax.swing.GroupLayout.DEFAULT_SIZE, javax.swing.GroupLayout.PREFERRED_SIZE)
+                    .addComponent(xst_qty))
                 .addPreferredGap(javax.swing.LayoutStyle.ComponentPlacement.UNRELATED)
                 .addGroup(jPanel2Layout.createParallelGroup(javax.swing.GroupLayout.Alignment.BASELINE)
                     .addComponent(jLabel4)
                     .addComponent(ftPrice, javax.swing.GroupLayout.PREFERRED_SIZE, javax.swing.GroupLayout.DEFAULT_SIZE, javax.swing.GroupLayout.PREFERRED_SIZE))
                 .addPreferredGap(javax.swing.LayoutStyle.ComponentPlacement.UNRELATED)
-                .addComponent(jButton1)
+                .addComponent(btnAdd)
                 .addPreferredGap(javax.swing.LayoutStyle.ComponentPlacement.UNRELATED)
-                .addComponent(jButton3)
-                .addPreferredGap(javax.swing.LayoutStyle.ComponentPlacement.RELATED, 12, Short.MAX_VALUE)
-                .addComponent(jButton2))
+                .addComponent(btnAddQTY)
+                .addPreferredGap(javax.swing.LayoutStyle.ComponentPlacement.RELATED, 74, Short.MAX_VALUE)
+                .addComponent(btnSave))
         );
 
         javax.swing.GroupLayout prodDialogLayout = new javax.swing.GroupLayout(prodDialog.getContentPane());
@@ -357,7 +361,7 @@ public class Home extends javax.swing.JFrame {
 
     }//GEN-LAST:event_addProdActionPerformed
 
-    private void jButton1ActionPerformed(java.awt.event.ActionEvent evt) {//GEN-FIRST:event_jButton1ActionPerformed
+    private void btnAddActionPerformed(java.awt.event.ActionEvent evt) {//GEN-FIRST:event_btnAddActionPerformed
         // TODO add your handling code here:
         String sPn = tfPname.getText();
         int iqty = (int) spinQTY.getValue();
@@ -377,7 +381,7 @@ public class Home extends javax.swing.JFrame {
 
         }
 
-    }//GEN-LAST:event_jButton1ActionPerformed
+    }//GEN-LAST:event_btnAddActionPerformed
 
     private void deleteProdActionPerformed(java.awt.event.ActionEvent evt) {//GEN-FIRST:event_deleteProdActionPerformed
         // TODO add your handling code here:
@@ -388,29 +392,28 @@ public class Home extends javax.swing.JFrame {
     private void updateProdActionPerformed(java.awt.event.ActionEvent evt) {//GEN-FIRST:event_updateProdActionPerformed
         // TODO add your handling code here:
 
-       
         int table_row = prodTBL.getSelectedRow();
         //this.enableAddProductFields();
-        
-        if(table_row != -1){
-        id = prodTBL.getValueAt(table_row, 0);
-        Object product_name = prodTBL.getValueAt(table_row, 1);
-        Object pro_qty = prodTBL.getValueAt(table_row, 2);
-        Object pro_price =prodTBL.getValueAt(table_row, 3);
-        
-        tfPname.setText((String) product_name);
-        spinQTY.setValue(Integer.valueOf((String) pro_qty));
-        ftPrice.setValue(Double.valueOf((String) pro_price));
-        
-        prodDialog.setVisible(true);
-        //addproductframe.setLocationRelativeTo(rootPane);
-        prodDialog.setAlwaysOnTop(true);
-       /* save_btn.setVisible(true);
+
+        if (table_row != -1) {
+            id = prodTBL.getValueAt(table_row, 0);
+            Object product_name = prodTBL.getValueAt(table_row, 1);
+            Object pro_qty = prodTBL.getValueAt(table_row, 2);
+            Object pro_price = prodTBL.getValueAt(table_row, 3);
+
+            tfPname.setText((String) product_name);
+            spinQTY.setValue(Integer.valueOf((String) pro_qty));
+            ftPrice.setValue(Double.valueOf((String) pro_price));
+
+            prodDialog.setVisible(true);
+            //addproductframe.setLocationRelativeTo(rootPane);
+            prodDialog.setAlwaysOnTop(true);
+            /* save_btn.setVisible(true);
         add_btn.setVisible(false);
         addqty_btn.setVisible(false);*/
-        
-        spinQTY.setEnabled(false);
-        }else{
+
+            spinQTY.setEnabled(false);
+        } else {
             JOptionPane.showMessageDialog(rootPane, "Please Select a product", "Warning", JOptionPane.WARNING_MESSAGE);
         }
     }//GEN-LAST:event_updateProdActionPerformed
@@ -429,38 +432,64 @@ public class Home extends javax.swing.JFrame {
         this.search(keyword);
     }//GEN-LAST:event_tfSearchKeyReleased
 
-    private void jButton2ActionPerformed(java.awt.event.ActionEvent evt) {//GEN-FIRST:event_jButton2ActionPerformed
+    private void btnSaveActionPerformed(java.awt.event.ActionEvent evt) {//GEN-FIRST:event_btnSaveActionPerformed
         // TODO add your handling code here:
-         String newpn = tfPname.getText();
+        String newpn = tfPname.getText();
         Object newpr = ftPrice.getValue();
-        
+
         int r = prod.editProduct(id, newpn, newpr);
-        if(r==1){
+        if (r == 1) {
+            refresh();
             JOptionPane.showMessageDialog(prodDialog, "Product Edit Successfully");
             prodDialog.setVisible(false);
-            this.refresh();
-        }else{
+
+        } else {
             JOptionPane.showMessageDialog(prodDialog, "Problem Editing Produc", "Error", JOptionPane.ERROR_MESSAGE);
         }
-    }//GEN-LAST:event_jButton2ActionPerformed
+    }//GEN-LAST:event_btnSaveActionPerformed
 
-    private void jButton3ActionPerformed(java.awt.event.ActionEvent evt) {//GEN-FIRST:event_jButton3ActionPerformed
+    private void btnAddQTYActionPerformed(java.awt.event.ActionEvent evt) {//GEN-FIRST:event_btnAddQTYActionPerformed
 
- String pn = tfPname.getText();
+        String pn = tfPname.getText();
         Object qty = spinQTY.getValue();
-        int c = JOptionPane.showConfirmDialog(prodDialog, "Would you like to add\n "+qty+"\n to "+pn+" product?", "Add Quantity", JOptionPane.YES_NO_OPTION);
-        if(c == JOptionPane.YES_OPTION){
-            int r = (int)prod.addQuantity(id, qty);
-            if(r==1){
+        int c = JOptionPane.showConfirmDialog(prodDialog, "Would you like to add\n " + qty + "\n to " + pn + " product?", "Add Quantity", JOptionPane.YES_NO_OPTION);
+        if (c == JOptionPane.YES_OPTION) {
+            int r = (int) prod.addQuantity(id, qty);
+            if (r == 1) {
                 JOptionPane.showMessageDialog(prodDialog, "Quantity Updated");
                 prodDialog.setVisible(false);
                 this.refresh();
             }
         }           // TODO add your handling code here:
-    }//GEN-LAST:event_jButton3ActionPerformed
+    }//GEN-LAST:event_btnAddQTYActionPerformed
 
     private void updateProd1ActionPerformed(java.awt.event.ActionEvent evt) {//GEN-FIRST:event_updateProd1ActionPerformed
         // TODO add your handling code here:
+         int row = prodTBL.getSelectedRow();
+        if(row != -1){
+            prodDialog.setVisible(true);
+            prodDialog.setLocationRelativeTo(this);
+            prodDialog.setAlwaysOnTop(true);
+            btnSave.setVisible(false);
+            btnAdd.setVisible(false);
+            btnAddQTY.setVisible(true);
+            
+            id = prodTBL.getValueAt(row, 0);
+            Object pn = prodTBL.getValueAt(row, 1);
+            Object qty = prodTBL.getValueAt(row, 2);
+            Object pr = prodTBL.getValueAt(row, 3);
+            
+            tfPname.setEnabled(false);
+            ftPrice.setEnabled(false);
+            spinQTY.setEnabled(true);
+            
+            tfPname.setText(pn.toString());
+            xst_qty.setText(qty.toString());
+            ftPrice.setValue(Double.valueOf(pr.toString()));
+            spinQTY.setValue(0);
+        }else{
+            JOptionPane.showMessageDialog(rootPane, "Please Select a product", "Warning", JOptionPane.WARNING_MESSAGE);
+        }
     }//GEN-LAST:event_updateProd1ActionPerformed
 
     /**
@@ -504,11 +533,11 @@ public class Home extends javax.swing.JFrame {
     // Variables declaration - do not modify//GEN-BEGIN:variables
     private javax.swing.JButton addProd;
     private javax.swing.JButton addProd1;
+    private javax.swing.JButton btnAdd;
+    private javax.swing.JButton btnAddQTY;
+    private javax.swing.JButton btnSave;
     private javax.swing.JButton deleteProd;
     private javax.swing.JFormattedTextField ftPrice;
-    private javax.swing.JButton jButton1;
-    private javax.swing.JButton jButton2;
-    private javax.swing.JButton jButton3;
     private javax.swing.JLabel jLabel2;
     private javax.swing.JLabel jLabel3;
     private javax.swing.JLabel jLabel4;
@@ -523,6 +552,7 @@ public class Home extends javax.swing.JFrame {
     private javax.swing.JTextField tfSearch;
     private javax.swing.JButton updateProd;
     private javax.swing.JButton updateProd1;
+    private javax.swing.JLabel xst_qty;
     // End of variables declaration//GEN-END:variables
 
     final void refresh() {
