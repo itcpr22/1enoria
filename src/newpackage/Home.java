@@ -99,6 +99,7 @@ public class Home extends javax.swing.JFrame {
         tfSearch = new javax.swing.JTextField();
         addProd1 = new javax.swing.JButton();
         updateProd1 = new javax.swing.JButton();
+        updateProd2 = new javax.swing.JButton();
 
         prodDialog.setLocation(new java.awt.Point(500, 200));
         prodDialog.setMinimumSize(new java.awt.Dimension(321, 300));
@@ -293,6 +294,13 @@ public class Home extends javax.swing.JFrame {
             }
         });
 
+        updateProd2.setText("POS");
+        updateProd2.addActionListener(new java.awt.event.ActionListener() {
+            public void actionPerformed(java.awt.event.ActionEvent evt) {
+                updateProd2ActionPerformed(evt);
+            }
+        });
+
         javax.swing.GroupLayout jPanel1Layout = new javax.swing.GroupLayout(jPanel1);
         jPanel1.setLayout(jPanel1Layout);
         jPanel1Layout.setHorizontalGroup(
@@ -303,7 +311,8 @@ public class Home extends javax.swing.JFrame {
                     .addComponent(addProd, javax.swing.GroupLayout.DEFAULT_SIZE, 89, Short.MAX_VALUE)
                     .addComponent(updateProd, javax.swing.GroupLayout.DEFAULT_SIZE, javax.swing.GroupLayout.DEFAULT_SIZE, Short.MAX_VALUE)
                     .addComponent(deleteProd, javax.swing.GroupLayout.DEFAULT_SIZE, javax.swing.GroupLayout.DEFAULT_SIZE, Short.MAX_VALUE)
-                    .addComponent(updateProd1, javax.swing.GroupLayout.DEFAULT_SIZE, javax.swing.GroupLayout.DEFAULT_SIZE, Short.MAX_VALUE))
+                    .addComponent(updateProd1, javax.swing.GroupLayout.DEFAULT_SIZE, javax.swing.GroupLayout.DEFAULT_SIZE, Short.MAX_VALUE)
+                    .addComponent(updateProd2, javax.swing.GroupLayout.DEFAULT_SIZE, javax.swing.GroupLayout.DEFAULT_SIZE, Short.MAX_VALUE))
                 .addPreferredGap(javax.swing.LayoutStyle.ComponentPlacement.RELATED)
                 .addGroup(jPanel1Layout.createParallelGroup(javax.swing.GroupLayout.Alignment.LEADING, false)
                     .addComponent(jScrollPane1, javax.swing.GroupLayout.PREFERRED_SIZE, 379, javax.swing.GroupLayout.PREFERRED_SIZE)
@@ -321,17 +330,19 @@ public class Home extends javax.swing.JFrame {
                     .addComponent(tfSearch, javax.swing.GroupLayout.PREFERRED_SIZE, javax.swing.GroupLayout.DEFAULT_SIZE, javax.swing.GroupLayout.PREFERRED_SIZE)
                     .addComponent(addProd1))
                 .addPreferredGap(javax.swing.LayoutStyle.ComponentPlacement.RELATED)
-                .addGroup(jPanel1Layout.createParallelGroup(javax.swing.GroupLayout.Alignment.LEADING)
-                    .addComponent(jScrollPane1, javax.swing.GroupLayout.PREFERRED_SIZE, 0, Short.MAX_VALUE)
+                .addGroup(jPanel1Layout.createParallelGroup(javax.swing.GroupLayout.Alignment.LEADING, false)
                     .addGroup(jPanel1Layout.createSequentialGroup()
                         .addComponent(addProd)
                         .addGap(13, 13, 13)
                         .addComponent(updateProd)
                         .addGap(18, 18, 18)
                         .addComponent(updateProd1)
-                        .addPreferredGap(javax.swing.LayoutStyle.ComponentPlacement.RELATED, 134, Short.MAX_VALUE)
-                        .addComponent(deleteProd)))
-                .addContainerGap())
+                        .addPreferredGap(javax.swing.LayoutStyle.ComponentPlacement.RELATED, javax.swing.GroupLayout.DEFAULT_SIZE, Short.MAX_VALUE)
+                        .addComponent(updateProd2)
+                        .addGap(18, 18, 18)
+                        .addComponent(deleteProd))
+                    .addComponent(jScrollPane1, javax.swing.GroupLayout.PREFERRED_SIZE, 247, javax.swing.GroupLayout.PREFERRED_SIZE))
+                .addContainerGap(33, Short.MAX_VALUE))
         );
 
         javax.swing.GroupLayout layout = new javax.swing.GroupLayout(getContentPane());
@@ -348,7 +359,7 @@ public class Home extends javax.swing.JFrame {
             .addGroup(layout.createSequentialGroup()
                 .addContainerGap()
                 .addComponent(jPanel1, javax.swing.GroupLayout.DEFAULT_SIZE, javax.swing.GroupLayout.DEFAULT_SIZE, Short.MAX_VALUE)
-                .addGap(23, 23, 23))
+                .addContainerGap())
         );
 
         pack();
@@ -492,6 +503,11 @@ public class Home extends javax.swing.JFrame {
         }
     }//GEN-LAST:event_updateProd1ActionPerformed
 
+    private void updateProd2ActionPerformed(java.awt.event.ActionEvent evt) {//GEN-FIRST:event_updateProd2ActionPerformed
+        // TODO add your handling code here:
+       new POS().setVisible(true);
+    }//GEN-LAST:event_updateProd2ActionPerformed
+
     /**
      * @param args the command line arguments
      */
@@ -552,6 +568,7 @@ public class Home extends javax.swing.JFrame {
     private javax.swing.JTextField tfSearch;
     private javax.swing.JButton updateProd;
     private javax.swing.JButton updateProd1;
+    private javax.swing.JButton updateProd2;
     private javax.swing.JLabel xst_qty;
     // End of variables declaration//GEN-END:variables
 
